@@ -11,7 +11,7 @@
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn> -->
-       <v-btn icon>
+       <v-btn icon >
       <v-icon>more_vert</v-icon>
     </v-btn>
     </v-toolbar>
