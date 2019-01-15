@@ -7,11 +7,6 @@
         <span>Jobs</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <!-- <v-btn flat color="dark">
-        <span>Sign Out</span>
-        <v-icon right>exit_to_app</v-icon>
-      </v-btn> -->
-
       <v-menu bottom left>
       <v-btn
               slot="activator"
@@ -31,7 +26,7 @@
             </v-list>
  </v-menu>
     </v-toolbar>
-<!-- 
+
  <v-navigation-drawer app v-model="drawer" class="cyan darken-4">
        <v-list>
         <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
@@ -43,8 +38,8 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-    </v-navigation-drawer> -->
-        <v-navigation-drawer
+    </v-navigation-drawer>
+        <!-- <v-navigation-drawer
       v-model="drawer"
       :mini-variant="mini"
       absolute
@@ -91,45 +86,45 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
  
   </nav>
 </template>
 
 <script>
-// export default {
-//   data() {
-//      return {
-//       drawer: false,
-//       links: [
-//         { icon: 'dashboard', text: 'Dashboard', route: '/dashboard' },
-//         { icon: 'folder', text: 'Manage', route: '/manages' },
-//      { icon: 'person', text: 'Team', route: '/team' },
-//       ]
-//     }
-//   }
-// }
-  export default {
+export default {
+  data() {
+     return {
+      drawer: false,
+      links: [
+        { icon: 'dashboard', text: 'Dashboard', route: '/dashboard' },
+        { icon: 'folder', text: 'Manage', route: '/manages' },
+     { icon: 'person', text: 'Team', route: '/team' },
+      ]
+    }
+  }
+}
+  // export default {
     
-   data () {
-      return {
-        drawer: false,
-        items: [
-          { title: 'Home', icon: 'dashboard' },
-          { title: 'Interview', icon: 'question_answer' },
-          { title: 'Search Candidates', icon: 'search' },
-          { title: 'Vacancy', icon: 'person' }
+  //  data () {
+  //     return {
+  //       drawer: false,
+  //       items: [
+  //         { title: 'Home', icon: 'dashboard' },
+  //         { title: 'Interview', icon: 'question_answer' },
+  //         { title: 'Search Candidates', icon: 'search' },
+  //         { title: 'Vacancy', icon: 'person' }
 
           
  
-        ],
-        mini: false,
-        right: null
-      }
+  //       ],
+  //       mini: false,
+  //       right: null
+  //     }
      
-    }
+  //   }
 
-  }
+  // }
 
 </script>
 
