@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashbored from './views/Dashbored.vue'
+import Dashboard from './views/Dashboard.vue'
 import Manage from './views/Manage.vue'
 import Team from './views/Team.vue'
 // import Login from './components/Login.vue'
@@ -11,9 +11,9 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'dashbored',
-      component: Dashbored
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard
     },
     {
       path: '/manages',
