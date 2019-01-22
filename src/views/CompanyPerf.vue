@@ -1,6 +1,6 @@
 <template>
-<div class="manages">
-  <h1>Manage</h1>
+<div class="CompanyPerfs">
+  <h1>Company performance</h1>
 </div>
 </template>
 

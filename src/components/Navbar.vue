@@ -1,5 +1,5 @@
 <template>
- <nav>
+<nav>
     <v-toolbar flat app class='blue-grey darken-4'>
         <v-toolbar-side-icon @click="drawer = !drawer" class="white--text"></v-toolbar-side-icon>
       <v-toolbar-title class="text-uppercase white--text">
@@ -44,9 +44,9 @@
           </v-list-tile-action>
         </v-list-tile>
         <v-list-tile avatar tag="div">
-          <v-list-tile-avatar>
+          <!-- <v-list-tile-avatar>
             <img src="https://randomuser.me/api/portraits/men/85.jpg">
-          </v-list-tile-avatar>
+          </v-list-tile-avatar> -->
           <v-list-tile-content>
             <v-list-tile-title class="white--text">Hahu</v-list-tile-title>
           </v-list-tile-content>
@@ -71,6 +71,84 @@
             <v-list-tile-title class="white--text">{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+
+        <v-list-group
+        prepend-icon="settings"
+        class='blue--text'
+        value="true"
+      >
+        <v-list-tile slot="activator">
+          <v-list-tile-title class="white--text">Configurations</v-list-tile-title>
+   
+    </v-list-tile>
+
+        <v-list-group
+          sub-group
+          value="true"
+        >
+          <v-list-tile slot="activator">
+            <v-list-tile-title>Registration</v-list-tile-title>
+          </v-list-tile>
+
+          <v-list-tile
+            v-for="(registration, i) in registrations"
+            :key="i"
+          >
+<!-- <router-link :to="{name: 'registration', params: { name: registration.name, id: index + 1 }}">
+                    {{customer.name}}
+                </router-link>-->
+
+            <v-list-tile-title class='cyan--text' v-text="registration[0]"></v-list-tile-title>
+            <v-list-tile-action>
+              <v-icon class='cyan--text' v-text="registration[1]"></v-icon>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list-group>
+        <v-list-tile
+            v-for="(configuration, i) in configurations"
+            :key="i"
+           @click="registrations"
+          >
+            <v-list-tile-title v-text="configuration[0]"></v-list-tile-title>
+            <v-list-tile-action>
+              <v-icon v-text="configuration[1]"></v-icon>
+            </v-list-tile-action>
+          </v-list-tile>
+
+          <v-list-group
+          sub-group
+          no-action
+        >
+          <v-list-tile slot="activator">
+            <v-list-tile-title>Adminstrations</v-list-tile-title>
+          </v-list-tile>
+
+          <v-list-tile
+            v-for="(adminstration, i) in adminstrations"
+            :key="i"
+            
+          >
+            <v-list-tile-title class='cyan--text' v-text="adminstration[0]"></v-list-tile-title>
+            <v-list-tile-action>
+              <v-icon class='cyan--text' v-text="adminstration[1]"></v-icon>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list-group>
+</v-list-group>
+
+<v-list-group
+ prepend-icon="enhanced_encryption"
+        >
+        <v-list-tile slot="activator">
+          <v-list-tile-title class="item-title">Authorization</v-list-tile-title>
+        </v-list-tile>
+         <v-list-tile @click="$router.push({ name: 'Login' })">
+          <v-list-tile-action>
+            <v-icon>cancel</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title class="item-title">Login</v-list-tile-title>
+        </v-list-tile>
+    </v-list-group>
       </v-list>
     </v-navigation-drawer> 
  </nav>
@@ -83,10 +161,11 @@
       return {
         drawer: false,
         items: [
-          { title: 'Home', icon: 'dashboard', route: '/dashboard'},
-          { title: 'Interview', icon: 'question_answer', route: '/manages' },
-          { title: 'Search Candidates', icon: 'search', route: '/team'  },
-          { title: 'Vacancy', icon: 'person' }
+          { title: 'Dashboard', icon: 'dashboard', route: '/dashboard'},
+          { title: 'Company performance', icon: 'question_answer', route: '/CompanyPerfs' },
+          { title: 'All company performance summary', icon: 'search', route: '/AllCompPerf'},
+          { title: 'Admin Dashboard', icon: 'gavel', route: '/AdminDb' },
+
           
  
         ],
@@ -96,9 +175,38 @@
         { title: 'Logout' , icon:'exit_to_app'},
         
       ],
+      selectedIndex: 1,
+      registrations: [
+   {title: 'Industry Park',icon: 'business', route: '/dashboard' },
+        ['Companies', 'account_balance']
+      ],
+      configurations: [
+      [ 'Grading Labels'],
+      ['Period Settings'],
+      ['Test']
+      ],
       
-        mini: false,
-        right: null
+      adminstrations: [
+        ['Users'],
+        ['Roles'],
+        ['Docs'],
+        ['Operations'],
+        ['Permissions'] 
+      ],
+
+mini: false,
+        right: null,
+
+methods: {
+    changeRoute(routeName, selectedIndex) {
+      const vm = this;
+
+      vm.selectedIndex = selectedIndex;
+
+      return vm.$router.push({ name: routeName });
+    }
+  },
+        
       }
      
     }

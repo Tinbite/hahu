@@ -1,170 +1,114 @@
 <template>
-  <v-navigation-drawer
-    v-model="toggle"
-    fixed app>
-    <v-toolbar flat dark :color="$root.themeColor" class="toolbar">
-      <router-link :to="{ name: 'Dashboard' }">
-        <img src="static/logo.png" width="36px"></img>
-      </router-link>
-      <router-link :to="{ name: 'Dashboard' }" class="text">
-         Vue Admin Template
-      </router-link>
+ <nav>
+    <v-toolbar flat app class='blue-grey darken-4'>
+        <v-toolbar-side-icon @click="drawer = !drawer" class="white--text"></v-toolbar-side-icon>
+      <v-toolbar-title class="text-uppercase white--text">
+        <span class="font-weight-light">Hahu</span>
+        <span>Jobs</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+       <v-menu bottom left>
+      <v-btn
+              slot="activator"
+              dark
+              transparent
+              icon
+            >
+              <v-icon>more_vert</v-icon>
+            </v-btn>
+
+            <v-list>
+              <v-list-tile
+                v-for="(menu, i) in menus"
+                :key="i"
+              >
+                <v-list-tile-title>{{ menu.title }}</v-list-tile-title>
+              </v-list-tile>
+              
+            
+         
+            </v-list>
+ </v-menu> 
     </v-toolbar>
-    <v-list>
-      <v-list-tile @click="changeRoute('Dashboard', 1)">
-        <v-list-tile-action>
-          <v-icon>dashboard</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title :class="[{'active': selectedIndex === 1}, 'item-title' ]" >Dashboard</v-list-tile-title>
-      </v-list-tile>
-
-      <v-list-tile @click="changeRoute('Calendar', 2)">
-        <v-list-tile-action>
-          <v-icon>calendar_today</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title :class="[{'active': selectedIndex === 2}, 'item-title' ]">Calendar</v-list-tile-title>
-      </v-list-tile>
-
-      <v-list-tile @click="changeRoute('Mailbox', 3)">
-        <v-list-tile-action>
-          <v-icon>inbox</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title :class="[{'active': selectedIndex === 3}, 'item-title' ]">Mailbox</v-list-tile-title>
-      </v-list-tile>
-
-      <v-list-group
-        prepend-icon="pageview">
-        <v-list-tile slot="activator">
-          <v-list-tile-title class="item-title">Widgets</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile @click="changeRoute('Social', 4)">
+  <v-navigation-drawer
+      v-model="drawer"
+      :mini-variant="mini"
+      absolute
+     class="blue-grey darken-4" 
+      temporary
+    >
+      <v-list class="pa-1">
+        <v-list-tile v-if="mini" @click.stop="mini = !mini">
           <v-list-tile-action>
-            <v-icon>group</v-icon>
+            <v-icon class="white--text">chevron_right</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title :class="[{'active': selectedIndex === 4}, 'item-title' ]">Social</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click="changeRoute('Chart', 5)">
+        <v-list-tile avatar tag="div">
+          <v-list-tile-avatar>
+            <img src="https://randomuser.me/api/portraits/men/85.jpg">
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title class="white--text">Hahu</v-list-tile-title>
+          </v-list-tile-content>
           <v-list-tile-action>
-            <v-icon>bar_chart</v-icon>
+            <v-btn icon @click.stop="mini = !mini">
+              <v-icon class="white--text">chevron_left</v-icon>
+            </v-btn>
           </v-list-tile-action>
-          <v-list-tile-title :class="[{'active': selectedIndex === 5}, 'item-title' ]">Charts</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click="changeRoute('Media', 6)">
+      </v-list>
+      <v-list class="pt-0" dense>
+        <v-divider light></v-divider>
+        <v-list-tile
+          v-for="item in items"
+          :key="item.title"
+          router :to="item.route"
+        >
           <v-list-tile-action>
-            <v-icon>perm_media</v-icon>
+            <v-icon class="white--text">{{ item.icon }}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title :class="[{'active': selectedIndex === 6}, 'item-title' ]">Media</v-list-tile-title>
-        </v-list-tile>
-    </v-list-group>
-
-      <v-list-group
-        prepend-icon="fingerprint">
-        <v-list-tile slot="activator">
-          <v-list-tile-title class="item-title">Authorization</v-list-tile-title>
-        </v-list-tile>
-
-        <v-list-tile @click="$router.push({ name: 'Error', params: { errorCode: '403' } })">
-          <v-list-tile-action>
-            <v-icon>cancel</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title class="item-title">403</v-list-tile-title>
-        </v-list-tile>
-
-        <v-list-tile @click="$router.push({ name: 'Error', params: { errorCode: '404' } })">
-          <v-list-tile-action>
-            <v-icon>cancel</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title class="item-title">404</v-list-tile-title>
+          <v-list-tile-content>
+            <v-list-tile-title class="white--text">{{ item.title }}</v-list-tile-title>
+          </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile @click="$router.push({ name: 'Error', params: { errorCode: '500' } })">
-          <v-list-tile-action>
-            <v-icon>cancel</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title class="item-title">500</v-list-tile-title>
-        </v-list-tile>
 
-        <v-list-tile @click="$router.push({ name: 'Login' })">
-          <v-list-tile-action>
-            <v-icon>cancel</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title class="item-title">Login</v-list-tile-title>
-        </v-list-tile>
-    </v-list-group>
-
-      <v-list-group
-      prepend-icon="account_circle">
-      <v-list-tile slot="activator">
-        <v-list-tile-title class="item-title">Users</v-list-tile-title>
-      </v-list-tile>
-          <v-list-tile
-            v-for="(admin, i) in admins"
-            :key="i"
-            @click="">
-            <v-list-tile-action>
-              <v-icon v-text="admin[1]"></v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title v-text="admin[0]"></v-list-tile-title>
-          </v-list-tile>
-    </v-list-group>
-    </v-list>
-  </v-navigation-drawer>
+      </v-list>
+    </v-navigation-drawer> 
+ </nav>
 </template>
-
 <script>
-export default {
-  props: {
-    toggle: {
-        type: Boolean,
-        required: false,
-        default: true
-    }
-  },
+  
+  export default {
+    
+   data () {
+      return {
+        drawer: false,
+        items: [
+          { title: 'Dashboard', icon: 'dashboard', route: '/dashboard'},
+          { title: 'Company performance', icon: 'question_answer', route: '/CompanyPerfs' },
+          { title: 'All company performance summary', icon: 'search', route: '/AllCompPerf'},
+          { title: 'Admin Dashboard', icon: 'dashboard', route: '/AdminDb' },
 
-  data() {
-    return {
-      selectedIndex: 1,
-      admins: [
-        ['Management', 'people_outline'],
-        ['Settings', 'settings']
-      ]
-    }
-  },
 
-  methods: {
-    changeRoute(routeName, selectedIndex) {
-      const vm = this;
 
-      vm.selectedIndex = selectedIndex;
-
-      return vm.$router.push({ name: routeName });
+          
+ 
+        ],
+        menus:[
+      { title: 'Profile', icon: 'person' },
+        { title: 'Settings', icon: 'setting' },
+        { title: 'Logout' , icon:'exit_to_app'},
+        
+      ],
+      
+        mini: false,
+        right: null
+      }
+     
     }
   }
-}
 </script>
 
 <style>
-  .toolbar {
-    font-weight: bold;
-    font-size: 18px;
-  }
-
-  .toolbar .text {
-    padding-left: 15px;
-    color: white;
-    text-decoration:none;
-  }
-
-  .item-title {
-    font-size: 17px;
-    font-weight: 500;
-  }
-  .item-sub-title {
-    font-size: 15px;
-    font-weight: 500;
-  }
-
-  .active {
-    font-weight: bold;
-  }
 </style>
